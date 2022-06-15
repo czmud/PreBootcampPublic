@@ -1,0 +1,117 @@
+/* styles for Ninja Man game */
+
+* {
+    margin: 0;
+    padding: 0;
+}
+.blank {
+    background-color: magenta;
+    height: 40px;
+    width: 40px;
+    display: inline-block;
+}
+#banner{
+    position: absolute;
+    width: 400px;
+    height: 90px;
+    left: 410px;
+    top: 145px;
+    border-style: solid;
+    border-width: 5px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 30px;
+}
+#ghost1{            
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    background-image: url("ninjaman/bluey.gif");
+    background-size: contain;
+    position: absolute;
+}
+#ghost2{            
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    background-image: url("ninjaman/pinky.gif");
+    background-size: contain;
+    position: absolute;
+}
+#ghost3{            
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    background-image: url("ninjaman/pumpky.gif");
+    background-size: contain;
+    position: absolute;
+}
+#ghost4{            
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    background-image: url("ninjaman/red.gif");
+    background-size: contain;
+    position: absolute;
+}
+#ghost5{
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    background-image: url("ninjaman/scaredy.png");
+    background-size: contain;
+    position: absolute;
+}
+#ghosts{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 1120px;
+    height: 480px;
+}
+#ninjaman{
+    background-color: magenta;
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    background-image: url("ninjaman/ninja.gif");
+    background-size: contain;
+    position: absolute;
+    left: 40px;
+    top: 120px;
+}
+.onigiri {
+    background-color: magenta;
+    height: 40px;
+    width: 40px;
+    display: inline-block;
+    background-image: url("ninjaman/onigiri.png");
+    background-size: contain;
+}
+.row {
+    line-height: 0;
+}
+#scoreBoard{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 1120px;
+    height: 40px;
+    font-size: 35px;
+    color: #00ced1;
+    text-shadow: 2px 2px black;
+}
+.sushi {
+    background-color: magenta;
+    height: 40px;
+    width: 40px;
+    display: inline-block;
+    background-image: url("ninjaman/sushi.png");
+    background-size: contain;
+}
+.wall {
+    background-color: green;
+    height: 40px;
+    width: 40px;
+    display: inline-block;
+}
