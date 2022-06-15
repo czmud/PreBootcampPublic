@@ -12,20 +12,20 @@
         <div id='bannerHolder'></div>
     <script type="text/javascript">
         
-        var worldHeight = 12, worldLength = 28;
-        var worldDict = {0: 'wall', 1: 'sushi', 2: 'onigiri', 3: 'blank'};
-        var ghosts= [];
-        var player = {left: 1, top: 3, leftPx: 40, topPx: 120, lives: 3, hit: false, hitTimer: 0};
-        var sushiScore = 0, totalSushi = 0;
-        var gameEnd = 0;
+        const worldHeight = 12, worldLength = 28;
+        const worldDict = {0: 'wall', 1: 'sushi', 2: 'onigiri', 3: 'blank'};
+        let ghosts= [];
+        let player = {left: 1, top: 3, leftPx: 40, topPx: 120, lives: 3, hit: false, hitTimer: 0};
+        let sushiScore = 0, totalSushi = 0;
+        let gameEnd = 0;
 
         function generateWorld(heightFx,lengthFx){
-            var genWorld = [],genRow = [];
-            var blankProb = 0.40;
-            for (x =0; x < heightFx; x++){ //initial world building
+            let genWorld = [],genRow = [];
+            let blankProb = 0.40;
+            for (let x=0; x<heightFx; x++){ //initial world building
                 genRow = [];
-                for(y = 0; y<lengthFx; y++){
-                    if(x==0 || x==heightFx-1 || y==0 || y == lengthFx-1 ){
+                for(let y=0; y<lengthFx; y++){
+                    if(x === 0 || x === heightFx-1 || y === 0 || y === lengthFx-1 ){
                         genRow.push(0)
                     }else{
                         if(Math.random()<blankProb){
@@ -43,9 +43,9 @@
                 let tempPiece = 0, v = 0;
                 for (x =1; x < heightFx-1; x++){ //making all pieces connect
                     for(y = 1; y<lengthFx-1; y++){
-                        if(genWorld[x][y] ==1){
-                            if (genWorld[x][y-1] == 0 && genWorld[x][y+1] == 0 
-                            && genWorld[x-1][y] == 0 && genWorld[x+1][y] == 0){
+                        if(genWorld[x][y] === 1){
+                            if (genWorld[x][y-1] === 0 && genWorld[x][y+1] === 0 
+                            && genWorld[x-1][y] === 0 && genWorld[x+1][y] === 0){
                                 if(y != lengthFx){
                                     genWorld[x][y+1] = 1;
                                 }else{
@@ -60,9 +60,9 @@
                 }                
             }
             let sushiSplit = 0.667;
-            for (x =0; x < heightFx; x++){ //making random mix of nigiri and sushi
-                for(y = 0; y<lengthFx; y++){
-                    if(genWorld[x][y] ===1){
+            for (let x=0; x<heightFx; x++){ //making random mix of nigiri and sushi
+                for(let y=0; y<lengthFx; y++){
+                    if(genWorld[x][y] === 1){
                         if(Math.random() > sushiSplit){
                             genWorld[x][y] = 2;
                         }
@@ -73,7 +73,7 @@
             
             for(let x=0; x<heightFx; x++){
                 for(let y=0; y<lengthFx; y++){
-                    if(genWorld[x][y] == 1 || genWorld[x][y] == 2){
+                    if(genWorld[x][y] === 1 || genWorld[x][y] === 2){
                         totalSushi++;
                     }
                 }
@@ -89,7 +89,7 @@
             for( let x=0; x<5;x++){
                 ghostLeft = 0;
                 ghostTop = 0;
-                while(world[ghostTop][ghostLeft]==0){
+                while(world[ghostTop][ghostLeft] === 0){
                     ghostLeft = Math.ceil(Math.random()*(worldLength-2)); 
                     ghostTop = Math.ceil(Math.random()*(worldHeight-2));
                     if(ghostLeft<5 && ghostTop <7){ //ensure ghosts aren't too close to ninjaMan when game starts
@@ -135,12 +135,12 @@
         let ghostDelay = 0, ghostRandonMovement = 0;
         function moveGhosts(ghostFx, ninjaFx){
             ghostDelay++;
-            if(ghostDelay == 4){
+            if(ghostDelay === 4){
                 ghostDelay = 0;
                 for(let x=0; x<ghostFx.length; x++){
                     ghostRandomMovement = Math.floor(Math.random()*2);
                     moveOptions = [];
-                    if(ghostFx[x].left == ninjaFx.left){// move vertically if ghost has line of sight to ninjaman
+                    if(ghostFx[x].left === ninjaFx.left){// move vertically if ghost has line of sight to ninjaman
                         if(ghostFx[x].top < ninjaFx.top){ //down
                             moveEnum = 4;
                             tempMove = movementMapping(moveEnum, ghostFx[x].left, ghostFx[x].top)
@@ -154,7 +154,7 @@
                                 ghostFx[x].top = tempMove.top;
                             }
                         }
-                    }else if(ghostFx[x].top == ninjaFx.top){// move horizontally if ghost has line of sight to ninjaman
+                    }else if(ghostFx[x].top === ninjaFx.top){// move horizontally if ghost has line of sight to ninjaman
                         if(ghostFx[x].left < ninjaFx.left){ //right
                             moveEnum = 2;
                             tempMove = movementMapping(moveEnum, ghostFx[x].left, ghostFx[x].top)
@@ -168,7 +168,7 @@
                                 ghostFx[x].left = tempMove.left;
                             }
                         }
-                    }else if(ghostRandomMovement == 1){
+                    }else if(ghostRandomMovement === 1){
                         for(let y=1; y<5; y++){
                             tempMove = movementMapping(y, ghostFx[x].left, ghostFx[x].top);
                             if(world[tempMove.top][tempMove.left] > 0){
@@ -224,7 +224,7 @@
                 }
             }else{
                 for (let x=0; x<ghostFx.length; x++){
-                    if(ghostFx[x].left == playerFx.left && ghostFx[x].top == playerFx.top){
+                    if(ghostFx[x].left === playerFx.left && ghostFx[x].top === playerFx.top){
                         playerFx.lives --;
                         playerFx.hit = true;
                         if(playerFx.lives < 1){
@@ -245,13 +245,13 @@
         
         document.onkeydown = function(e){
             console.log(e);
-            if(e.keyCode == 37 && player.left > 0) { // LEFT
+            if(e.keyCode === 37 && player.left > 0) { // LEFT
                 leftTemp = player.left - 1;
-            }else if (e.keyCode == 39 && player.left < (worldLength-1)) { // RIGHT
+            }else if (e.keyCode === 39 && player.left < (worldLength-1)) { // RIGHT
                 leftTemp = player.left + 1;
-            }else if (e.keyCode == 40 && player.top < (worldHeight-1)) { // DOWN
+            }else if (e.keyCode === 40 && player.top < (worldHeight-1)) { // DOWN
 				topTemp = player.top + 1;
-            }else if (e.keyCode == 38 && player.top > 0) { // UP
+            }else if (e.keyCode === 38 && player.top > 0) { // UP
 				topTemp = player.top - 1;
 			}
             if(world[topTemp][leftTemp] > 0){
@@ -285,10 +285,10 @@
             
             gameTimeLimit++;
 		    if( gameTimeLimit > 50000 || gameEnd > 0){ // end game if any condiitons are met.
-                if(gameEnd == 1){
+                if(gameEnd === 1){
                     document.getElementById("bannerHolder").innerHTML += "<div id='banner' style='border-color: red; background-color: #fda5b4'><b>GAME OVER</b>"+
                     "<br>You were killed by ghosts.<br><i>Refresh page to play again</i></div>";
-			    }else if(gameEnd == 2){
+			    }else if(gameEnd === 2){
 				    document.getElementById("bannerHolder").innerHTML += "<div id='banner' style='border-color: green; background-color: #cceecc'><b>YOU WIN!</b>"+
 				    "<br>"+sushiScore+" sushi collected!<br><i>Refresh page to play again</i></div>";
                 }
