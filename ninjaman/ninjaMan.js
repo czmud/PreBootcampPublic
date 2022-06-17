@@ -49,7 +49,7 @@ function generateWorldGrid() {
 }
 
 function populateGridWithSushiSpaces(worldFx) {
-	let coordFx = { top: 3, left: 1 },
+	let coordFx = { top: 4, left: 1 },
 		nextSushiSpace = 0,
 		branchCount = 0;
 	worldFx[coordFx.top][coordFx.left] = wordToGrid.sushi; //Set map generation 'nucleation' point. For now always start ninjaman in this space
