@@ -431,6 +431,7 @@ function isAnEdge(topFx, leftFx, enumerationFx) {
 }
 
 function checkGhostAttack(ghostFx, playerFx) {
+	//checks to see if ninjaman is in the same space as a ghost, if yes then loose a life
 	if (playerFx.hit) {
 		playerFx.hitTimer += 1;
 		if (playerFx.hitTimer > 20) {
