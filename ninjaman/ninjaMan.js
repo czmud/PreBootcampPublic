@@ -1,6 +1,6 @@
 //game play for ninjaman
 
-const worldHeight = 12,
+const worldHeight = 16,
 	worldLength = 28;
 const gridToWord = { 0: 'wall', 1: 'sushi', 2: 'onigiri', 3: 'blank' };
 const wordToGrid = { wall: 0, sushi: 1, onigiri: 2, blank: 3 };
@@ -21,7 +21,7 @@ let mapSpaceOrder = [];
 //const wallProb = 0.2; //Probability that randomly generated grid spaces are walls
 const sushiOnigiriSplit = 0.667; //Percentage of sushi that is onigiri
 const totalSushiSpaces = 175; //max amount of sushi squares that can be generated
-const numberOfBranches = 5;
+const numberOfBranches = 25;
 //const snakingProb = 0.75; //Probability that new spaces preference a snaking pattern instead of clumping
 
 let gameTimer = 0; //timer to limit game from looping forever (deciseconds)
@@ -79,6 +79,91 @@ function populateGridWithSushiSpaces(worldFx) {
 			mapSpaceOrder.push({ top: coordFx.top, left: coordFx.left });
 		}
 	}
+	for (let y = 1; y < worldHeight - 1; y++) {
+		for (let x = 1; x < worldLength - 1; x++) {
+			if (y === 1 || y === worldHeight - 2 || x === 1 || x == worldLength - 2) {
+				if (Math.random() < 0.35) {
+					if (y === 1) {
+						world[y + 1][x - 1] = 1;
+						world[y + 1][x] = 1;
+						world[y + 1][x + 1] = 1;
+						if (Math.random() < 0.5) {
+							world[y + 2][x] = 1;
+							if (Math.random() < 0.5) {
+								world[y + 3][x] = 1;
+								if (Math.random() < 0.8) {
+									world[y + 4][x] = 1;
+								}
+							}
+						}
+					} else if (y === worldHeight - 2) {
+						world[y - 1][x - 1] = 1;
+						world[y - 1][x] = 1;
+						world[y - 1][x + 1] = 1;
+						if (Math.random() < 0.5) {
+							world[y - 2][x] = 1;
+							if (Math.random() < 0.5) {
+								world[y - 3][x] = 1;
+								if (Math.random() < 0.8) {
+									world[y - 4][x] = 1;
+								}
+							}
+						}
+					} else if (x === 1) {
+						world[y - 1][x + 1] = 1;
+						world[y][x + 1] = 1;
+						world[y + 1][x + 1] = 1;
+						if (Math.random() < 0.5) {
+							world[y][x + 2] = 1;
+							if (Math.random() < 0.5) {
+								world[y][x + 3] = 1;
+								if (Math.random() < 0.8) {
+									world[y][x + 4] = 1;
+								}
+							}
+						}
+					} else if (x === worldLength - 2) {
+						world[y - 1][x - 1] = 1;
+						world[y][x - 1] = 1;
+						world[y + 1][x - 1] = 1;
+						if (Math.random() < 0.5) {
+							world[y][x - 2] = 1;
+							if (Math.random() < 0.5) {
+								world[y][x - 3] = 1;
+								if (Math.random() < 0.8) {
+									world[y][x - 4] = 1;
+								}
+							}
+						}
+					}
+				} else {
+					world[y][x] = 1;
+				}
+			} else if (y === Math.ceil(worldHeight / 2)) {
+				if (Math.random() < 0.7) {
+					world[y - 1][x - 1] = 1;
+					world[y - 1][x] = 1;
+					world[y - 1][x + 1] = 1;
+					if (Math.random() < 0.5) {
+						world[y - 2][x] = 1;
+					}
+				} else {
+					world[y][x] = 1;
+				}
+			} else if (x === Math.ceil(worldLength / 3) || x === Math.ceil((worldLength * 2) / 3)) {
+				if (Math.random() < 0.7) {
+					world[y - 1][x - 1] = 1;
+					world[y][x - 1] = 1;
+					world[y + 1][x - 1] = 1;
+					if (Math.random() < 0.5) {
+						world[y][x - 2] = 1;
+					}
+				} else {
+					world[y][x] = 1;
+				}
+			}
+		}
+	}
 
 	for (let y = 0; y < worldHeight; y++) {
 		//making random mix of onigiri and sushi
@@ -91,6 +176,14 @@ function populateGridWithSushiSpaces(worldFx) {
 		}
 	}
 
+	(world[0][2] = 0),
+		(world[0][worldLength - 3] = 0),
+		(world[2][worldLength - 1] = 0),
+		(world[worldHeight - 3][worldLength - 1] = 0),
+		(world[worldHeight - 1][2] = 0),
+		(world[worldHeight - 1][worldLength - 3] = 0),
+		(world[worldHeight - 3][0] = 0),
+		(world[2][0] = 0);
 	world[3][1] = wordToGrid.blank;
 
 	for (let y = 0; y < worldHeight; y++) {

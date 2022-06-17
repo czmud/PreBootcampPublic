@@ -20,6 +20,9 @@
 	"eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
 	"files.insertFinalNewline": true,
 	"cSpell.words": [
-		"ninjaman"
+		"deciseconds",
+		"ninjaman",
+		"onigiri",
+		"WASD"
 	]
 }
